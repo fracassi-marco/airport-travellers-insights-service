@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.infrastructure.http;
+package ai.faire.challenge.airport.infrastructure.controllers;
 
 import ai.faire.challenge.airport.use_cases.RegisterTripUseCase;
 import org.junit.jupiter.api.Test;

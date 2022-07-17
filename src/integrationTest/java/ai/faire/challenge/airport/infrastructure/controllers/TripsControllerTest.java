@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.infrastructure.http;
+package ai.faire.challenge.airport.infrastructure.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

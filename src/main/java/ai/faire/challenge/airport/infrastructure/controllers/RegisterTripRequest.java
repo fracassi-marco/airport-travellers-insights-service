@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.infrastructure.http;
+package ai.faire.challenge.airport.infrastructure.controllers;
 
 import java.util.Objects;
 
