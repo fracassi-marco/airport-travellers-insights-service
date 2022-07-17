@@ -1,12 +1,13 @@
 package ai.faire.challenge.airport.domain;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class PurposePrediction {
   private final String purpose;
-  private final double probability;
+  private final BigDecimal probability;
 
-  public PurposePrediction(String purpose, double probability) {
+  public PurposePrediction(String purpose, BigDecimal probability) {
     this.purpose = purpose;
     this.probability = probability;
   }
@@ -18,17 +19,14 @@ public class PurposePrediction {
 
     PurposePrediction that = (PurposePrediction) o;
 
-    if (Double.compare(that.probability, probability) != 0) return false;
-    return Objects.equals(purpose, that.purpose);
+    if (!Objects.equals(purpose, that.purpose)) return false;
+    return Objects.equals(probability, that.probability);
   }
 
   @Override
   public int hashCode() {
-    int result;
-    long temp;
-    result = purpose != null ? purpose.hashCode() : 0;
-    temp = Double.doubleToLongBits(probability);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    int result = purpose != null ? purpose.hashCode() : 0;
+    result = 31 * result + (probability != null ? probability.hashCode() : 0);
     return result;
   }
 }

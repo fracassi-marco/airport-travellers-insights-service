@@ -41,8 +41,8 @@ public class TripsControllerTest {
     var request = new RegisterTripRequest();
     request.setOriginAirportCode("LIN");
     request.setDestinationAirportCode("AMS");
-    request.setDepartureDate("2022-07-14");
-    request.setReturnDate("2022-07-18");
+    request.setDepartureDate("2022-09-14");
+    request.setReturnDate("2022-09-18");
 
     var response = restTemplate.postForEntity(baseUri + "/trips", request, RegisterTripRequest.class);
 

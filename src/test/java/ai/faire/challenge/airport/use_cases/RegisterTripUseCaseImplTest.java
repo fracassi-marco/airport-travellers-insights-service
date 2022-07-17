@@ -6,6 +6,8 @@ import ai.faire.challenge.airport.domain.PurposePrediction;
 import ai.faire.challenge.airport.domain.TripsRepository;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.*;
 
 public class RegisterTripUseCaseImplTest {
@@ -16,7 +18,7 @@ public class RegisterTripUseCaseImplTest {
 
   @Test
   void createTrip() {
-    PurposePrediction prediction = new PurposePrediction("LEISURE", 0.9984415);
+    PurposePrediction prediction = new PurposePrediction("LEISURE", new BigDecimal(0.9984415));
     when(predictionsService.tripPurpose("LIN", "AMS", "2022-07-14", "2022-07-18")).thenReturn(prediction);
 
     registerTripUseCase.execute("LIN", "AMS", "2022-07-14", "2022-07-18");
