@@ -17,9 +17,11 @@ import java.util.Map;
 @Component
 public class AmadeusPredictionsService implements PredictionsService {
 
+  private final String endpoint = "https://test.api.amadeus.com";
+
   @Override
   public PurposePrediction tripPurpose(String originAirportCode, String destinationAirportCode, String departureDate, String returnDate) {
-    String url = "https://test.api.amadeus.com/v1/travel/predictions/trip-purpose?" +
+    String url =  endpoint + "/v1/travel/predictions/trip-purpose?" +
       "originLocationCode=" + originAirportCode +
       "&destinationLocationCode=" + destinationAirportCode +
       "&departureDate=" + departureDate +
@@ -28,7 +30,7 @@ public class AmadeusPredictionsService implements PredictionsService {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
-    headers.set("Authorization", "Bearer " + getBearer());
+    headers.setBearerAuth(getAccessToken());
 
     HttpEntity<Void> entity = new HttpEntity<>(headers);
 
@@ -38,8 +40,8 @@ public class AmadeusPredictionsService implements PredictionsService {
     return new PurposePrediction(data.get("result"), new BigDecimal(data.get("probability")));
   }
 
-  private String getBearer() {
-    String url = "https://test.api.amadeus.com/v1/security/oauth2/token";
+  private String getAccessToken() {
+    String url = endpoint + "/v1/security/oauth2/token";
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
     map.add("grant_type", "client_credentials");
     map.add("client_id", "r0TCN2h1I52etmG9G2g0nAGAHDpJJuwl");
