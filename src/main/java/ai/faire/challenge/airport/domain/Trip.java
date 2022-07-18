@@ -1,5 +1,6 @@
 package ai.faire.challenge.airport.domain;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Trip {
@@ -15,6 +16,14 @@ public class Trip {
     this.departureDate = departureDate;
     this.returnDate = returnDate;
     this.purposePrediction = purposePrediction;
+  }
+
+  public boolean isFor(String purpose) {
+    return purposePrediction.getPurpose().equals(purpose);
+  }
+
+  public BigDecimal probability() {
+    return purposePrediction.getProbability();
   }
 
   @Override

@@ -12,6 +12,14 @@ public class PurposePrediction {
     this.probability = probability;
   }
 
+  public String getPurpose() {
+    return purpose;
+  }
+
+  public BigDecimal getProbability() {
+    return probability;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
