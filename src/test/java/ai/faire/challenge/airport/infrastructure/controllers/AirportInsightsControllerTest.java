@@ -1,13 +1,14 @@
 package ai.faire.challenge.airport.infrastructure.controllers;
 
 import ai.faire.challenge.airport.domain.AirportInsights;
-import ai.faire.challenge.airport.use_cases.GetAirportInsightsUseCase;
+import ai.faire.challenge.airport.usecases.GetAirportInsightsUseCase;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AirportInsightsControllerTest {
 

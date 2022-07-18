@@ -1,16 +1,10 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
-import ai.faire.challenge.airport.domain.PredictionsService;
-import ai.faire.challenge.airport.domain.PurposePrediction;
-import ai.faire.challenge.airport.domain.Trip;
 import ai.faire.challenge.airport.domain.TripsRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
-import java.math.BigDecimal;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CancelTripUseCaseImplTest {
 

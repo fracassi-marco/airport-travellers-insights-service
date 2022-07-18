@@ -1,7 +1,5 @@
 package ai.faire.challenge.airport.infrastructure.controllers;
 
-import java.util.Objects;
-
 public class GetAirportInsightsResponse {
   private String airportCode;
   private String date;

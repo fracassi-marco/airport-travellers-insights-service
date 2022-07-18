@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
 import ai.faire.challenge.airport.domain.PredictionsService;
 import ai.faire.challenge.airport.domain.Trip;
@@ -19,11 +19,16 @@ public class RegisterTripUseCaseImpl implements RegisterTripUseCase {
   }
 
   @Override
-  public Trip execute(String originAirportCode, String destinationAirportCode, String departureDate, String returnDate) {
-    PurposePrediction purposePrediction = predictionsService.tripPurpose(originAirportCode, destinationAirportCode, departureDate, returnDate);
-    Trip trip = new Trip(UUID.randomUUID().toString(), originAirportCode, destinationAirportCode, departureDate, returnDate, purposePrediction);
+  public Trip execute(String originAirport, String destinationAirport, String departureDate, String returnDate) {
+    PurposePrediction purposePrediction = predictionsService.tripPurpose(originAirport, destinationAirport,
+      departureDate, returnDate);
+    Trip trip = new Trip(uuid(), originAirport, destinationAirport, departureDate, returnDate, purposePrediction);
     tripsRepository.create(trip);
 
     return trip;
+  }
+
+  private String uuid() {
+    return UUID.randomUUID().toString();
   }
 }

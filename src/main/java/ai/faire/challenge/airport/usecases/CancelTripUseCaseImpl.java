@@ -1,10 +1,10 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
 import ai.faire.challenge.airport.domain.TripsRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CancelTripUseCaseImpl implements CancelTripUseCase{
+public class CancelTripUseCaseImpl implements CancelTripUseCase {
   private final TripsRepository tripsRepository;
 
   public CancelTripUseCaseImpl(TripsRepository tripsRepository) {

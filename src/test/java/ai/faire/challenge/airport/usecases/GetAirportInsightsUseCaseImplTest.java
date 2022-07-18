@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
 import ai.faire.challenge.airport.domain.AirportInsights;
 import ai.faire.challenge.airport.domain.PurposePrediction;
@@ -21,8 +21,8 @@ public class GetAirportInsightsUseCaseImplTest {
   @Test
   void buildInsights() {
     when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
-      new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
-      new Trip("id2", "BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("BUSINESS", new BigDecimal("0.95")))
+      new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction("LEISURE", "0.97")),
+      new Trip("id2", "BRU", "LIN", "2022-07-12", "2022-07-14", prediction("BUSINESS", "0.95"))
     ));
 
     AirportInsights result = useCase.execute("LIN", "2022-07-14");
@@ -30,10 +30,14 @@ public class GetAirportInsightsUseCaseImplTest {
     assertThat(result).isEqualTo(new AirportInsights(2, 1, 1, new BigDecimal("0.97"), new BigDecimal("0.95")));
   }
 
+  private PurposePrediction prediction(String purpose, String val) {
+    return new PurposePrediction(purpose, new BigDecimal(val));
+  }
+
   @Test
   void buildInsightsWithoutLeisureTravellers() {
     when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
-      new Trip("id", "BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("BUSINESS", new BigDecimal("0.95")))
+      new Trip("id", "BRU", "LIN", "2022-07-12", "2022-07-14", prediction("BUSINESS", "0.95"))
     ));
 
     AirportInsights result = useCase.execute("LIN", "2022-07-14");
@@ -44,8 +48,8 @@ public class GetAirportInsightsUseCaseImplTest {
   @Test
   void buildInsightsCalculateProbability() {
     when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
-      new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
-      new Trip("id2", "BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("LEISURE", new BigDecimal("0.84")))
+      new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction("LEISURE", "0.97")),
+      new Trip("id2", "BRU", "LIN", "2022-07-12", "2022-07-14", prediction("LEISURE", "0.84"))
     ));
 
     AirportInsights result = useCase.execute("LIN", "2022-07-14");

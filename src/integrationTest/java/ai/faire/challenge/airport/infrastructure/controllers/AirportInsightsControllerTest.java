@@ -1,7 +1,7 @@
 package ai.faire.challenge.airport.infrastructure.controllers;
 
 import ai.faire.challenge.airport.domain.AirportInsights;
-import ai.faire.challenge.airport.use_cases.GetAirportInsightsUseCase;
+import ai.faire.challenge.airport.usecases.GetAirportInsightsUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

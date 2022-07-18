@@ -10,7 +10,11 @@ public class AirportInsights {
   private final BigDecimal leisurePurposeProbability;
   private final BigDecimal businessPurposeProbability;
 
-  public AirportInsights(int totalTravellers, int leisurePurposeTravellers, int businessPurposeTravellers, BigDecimal leisurePurposeProbability, BigDecimal businessPurposeProbability) {
+  public AirportInsights(int totalTravellers,
+                         int leisurePurposeTravellers,
+                         int businessPurposeTravellers,
+                         BigDecimal leisurePurposeProbability,
+                         BigDecimal businessPurposeProbability) {
     this.totalTravellers = totalTravellers;
     this.leisurePurposeTravellers = leisurePurposeTravellers;
     this.businessPurposeTravellers = businessPurposeTravellers;
@@ -39,17 +43,24 @@ public class AirportInsights {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  public boolean equals(Object obj) {
+    if (this == obj) { return true; }
+    if (obj == null || getClass() != obj.getClass()) { return false; }
 
-    AirportInsights that = (AirportInsights) o;
+    AirportInsights that = (AirportInsights) obj;
 
-    if (totalTravellers != that.totalTravellers) return false;
-    if (leisurePurposeTravellers != that.leisurePurposeTravellers) return false;
-    if (businessPurposeTravellers != that.businessPurposeTravellers) return false;
-    if (!Objects.equals(leisurePurposeProbability, that.leisurePurposeProbability))
+    if (totalTravellers != that.totalTravellers) {
       return false;
+    }
+    if (leisurePurposeTravellers != that.leisurePurposeTravellers) {
+      return false;
+    }
+    if (businessPurposeTravellers != that.businessPurposeTravellers) {
+      return false;
+    }
+    if (!Objects.equals(leisurePurposeProbability, that.leisurePurposeProbability)) {
+      return false;
+    }
     return Objects.equals(businessPurposeProbability, that.businessPurposeProbability);
   }
 

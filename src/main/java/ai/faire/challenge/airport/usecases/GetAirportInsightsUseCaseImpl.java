@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
 import ai.faire.challenge.airport.domain.AirportInsights;
 import ai.faire.challenge.airport.domain.Trip;
@@ -34,14 +34,15 @@ public class GetAirportInsightsUseCaseImpl implements GetAirportInsightsUseCase 
   }
 
   private BigDecimal probability(List<Trip> trips) {
-    if (trips.isEmpty())
+    if (trips.isEmpty()) {
       return null;
+    }
 
     List<BigDecimal> probabilities = trips.stream().map(Trip::probability).collect(toList());
     return probabilityOfIndependentEvents(probabilities);
   }
 
-  private List<Trip> tripsFor(List<Trip> trips, String LEISURE) {
-    return trips.stream().filter(it -> it.isFor(LEISURE)).collect(toList());
+  private List<Trip> tripsFor(List<Trip> trips, String purpose) {
+    return trips.stream().filter(it -> it.isFor(purpose)).collect(toList());
   }
 }

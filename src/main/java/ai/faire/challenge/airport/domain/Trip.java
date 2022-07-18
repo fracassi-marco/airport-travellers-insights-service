@@ -10,7 +10,11 @@ public class Trip {
   private final String returnDate;
   private final PurposePrediction purposePrediction;
 
-  public Trip(String id, String originAirportCode, String destinationAirportCode, String departureDate, String returnDate, PurposePrediction purposePrediction) {
+  public Trip(String id, String originAirportCode,
+              String destinationAirportCode,
+              String departureDate,
+              String returnDate,
+              PurposePrediction purposePrediction) {
     this.id = id;
     this.originAirportCode = originAirportCode;
     this.destinationAirportCode = destinationAirportCode;

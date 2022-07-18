@@ -47,7 +47,7 @@ class AcceptanceTest {
   @Test
   void registerAndCancelAirportsAndGetInsights() throws Exception {
     registerTrip("LIN", "AMS", "2022-07-14", "2022-07-18");
-    waitInOrderToAvoidTooManyRequests();
+    waitToAvoidTooManyRequests();
     String tripId = registerTrip("BRU", "LIN", "2022-07-12", "2022-07-14");
 
     assertThat(getAirportInsights("LIN", "2022-07-14").getTotalTravellers()).isEqualTo(2);
@@ -57,8 +57,8 @@ class AcceptanceTest {
     assertThat(getAirportInsights("LIN", "2022-07-14").getTotalTravellers()).isEqualTo(1);
   }
 
-  private void waitInOrderToAvoidTooManyRequests() throws InterruptedException {
-    Thread.sleep(500);
+  private void waitToAvoidTooManyRequests() throws InterruptedException {
+    Thread.sleep(1500);
   }
 
   private void cancelTrip(String tripId) {
@@ -76,10 +76,10 @@ class AcceptanceTest {
     return response.getBody();
   }
 
-  private String registerTrip(String originAirportCode, String destinationAirportCode, String departureDate, String returnDate) {
+  private String registerTrip(String originAirport, String destAirport, String departureDate, String returnDate) {
     var request = new RegisterTripRequest();
-    request.setOriginAirportCode(originAirportCode);
-    request.setDestinationAirportCode(destinationAirportCode);
+    request.setOriginAirportCode(originAirport);
+    request.setDestinationAirportCode(destAirport);
     request.setDepartureDate(departureDate);
     request.setReturnDate(returnDate);
 
@@ -88,5 +88,4 @@ class AcceptanceTest {
 
     return response.getBody().getId();
   }
-
 }

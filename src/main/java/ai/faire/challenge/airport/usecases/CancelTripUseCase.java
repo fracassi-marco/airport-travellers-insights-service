@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
 public interface CancelTripUseCase {
   void execute(String tripId);

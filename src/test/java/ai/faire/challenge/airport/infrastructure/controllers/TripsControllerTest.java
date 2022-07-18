@@ -2,14 +2,16 @@ package ai.faire.challenge.airport.infrastructure.controllers;
 
 import ai.faire.challenge.airport.domain.PurposePrediction;
 import ai.faire.challenge.airport.domain.Trip;
-import ai.faire.challenge.airport.use_cases.CancelTripUseCase;
-import ai.faire.challenge.airport.use_cases.RegisterTripUseCase;
+import ai.faire.challenge.airport.usecases.CancelTripUseCase;
+import ai.faire.challenge.airport.usecases.RegisterTripUseCase;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 public class TripsControllerTest {
 
@@ -26,7 +28,7 @@ public class TripsControllerTest {
     request.setReturnDate("2022-07-18");
 
     when(registerTripUseCase.execute("LIN", "AMS", "2022-07-14", "2022-07-18")).thenReturn(
-      new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction())
+      new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction())
     );
 
     var response = tripsController.registerTrip(request);
@@ -41,7 +43,7 @@ public class TripsControllerTest {
     verify(cancelTripUseCase).execute("the_id");
   }
 
-  private PurposePrediction aPrediction() {
+  private PurposePrediction prediction() {
     return new PurposePrediction("LEISURE", new BigDecimal("0.97"));
   }
 }

@@ -1,4 +1,4 @@
-package ai.faire.challenge.airport.use_cases;
+package ai.faire.challenge.airport.usecases;
 
 import ai.faire.challenge.airport.domain.PredictionsService;
 import ai.faire.challenge.airport.domain.Trip;
@@ -10,13 +10,16 @@ import org.mockito.ArgumentCaptor;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 public class RegisterTripUseCaseImplTest {
 
   private final TripsRepository tripsRepository = mock(TripsRepository.class);
   private final PredictionsService predictionsService = mock(PredictionsService.class);
-  private final RegisterTripUseCaseImpl registerTripUseCase = new RegisterTripUseCaseImpl(tripsRepository, predictionsService);
+  private final RegisterTripUseCaseImpl registerTripUseCase = new RegisterTripUseCaseImpl(
+    tripsRepository, predictionsService);
 
   @Test
   void createTrip() {

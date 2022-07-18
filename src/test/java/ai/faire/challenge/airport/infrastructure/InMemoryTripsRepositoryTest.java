@@ -15,7 +15,7 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void foundOnDepartureDate() {
-    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("LIN", "2022-07-14");
 
@@ -24,7 +24,7 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void notFoundOnDepartureDate() {
-    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("AMS", "2022-07-14");
 
@@ -33,7 +33,7 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void foundOnReturnDate() {
-    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("AMS", "2022-07-18");
 
@@ -42,7 +42,7 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void notFoundOnReturnDate() {
-    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("LIN", "2022-07-18");
 
@@ -51,8 +51,8 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void filterByAirport() {
-    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
-    repository.create(new Trip("id2", "AMS", "LIN", "2022-07-14", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
+    repository.create(new Trip("id2", "AMS", "LIN", "2022-07-14", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("LIN", "2022-07-18");
 
@@ -61,8 +61,8 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void filterByDate() {
-    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
-    repository.create(new Trip("id2", "LIN", "AMS", "2022-07-15", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
+    repository.create(new Trip("id2", "LIN", "AMS", "2022-07-15", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("LIN", "2022-07-14");
 
@@ -71,8 +71,8 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void noMatch() {
-    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
-    repository.create(new Trip("id2", "LIN", "AMS", "2022-07-15", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
+    repository.create(new Trip("id2", "LIN", "AMS", "2022-07-15", "2022-07-18", prediction()));
 
     List<Trip> trips = repository.filter("ABI", "2022-07-13");
 
@@ -81,8 +81,8 @@ public class InMemoryTripsRepositoryTest {
 
   @Test
   public void deleteTrip() {
-    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
-    repository.create(new Trip("id2", "LIN", "AMS", "2022-07-14", "2022-07-18", aPrediction()));
+    repository.create(new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
+    repository.create(new Trip("id2", "LIN", "AMS", "2022-07-14", "2022-07-18", prediction()));
 
     repository.delete("id1");
 
@@ -90,7 +90,7 @@ public class InMemoryTripsRepositoryTest {
     assertThat(trips.size()).isEqualTo(1);
   }
 
-  private PurposePrediction aPrediction() {
+  private PurposePrediction prediction() {
     return new PurposePrediction("LEISURE", new BigDecimal("0.97"));
   }
 }

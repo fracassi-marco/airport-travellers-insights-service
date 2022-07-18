@@ -1,7 +1,7 @@
 package ai.faire.challenge.airport.infrastructure.controllers;
 
 import ai.faire.challenge.airport.domain.AirportInsights;
-import ai.faire.challenge.airport.use_cases.GetAirportInsightsUseCase;
+import ai.faire.challenge.airport.usecases.GetAirportInsightsUseCase;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class AirportInsightsController {
   }
 
   @PostMapping
-  public GetAirportInsightsResponse getAirportInsights(@RequestBody  GetAirportInsightsRequest request) {
+  public GetAirportInsightsResponse getAirportInsights(@RequestBody GetAirportInsightsRequest request) {
     AirportInsights airportInsights = getAirportInsightsUseCase.execute(request.getAirportCode(), request.getDate());
     GetAirportInsightsResponse response = new GetAirportInsightsResponse();
     response.setAirportCode(request.getAirportCode());
@@ -33,8 +33,9 @@ public class AirportInsightsController {
   }
 
   private String safe(BigDecimal probability) {
-    if(probability == null)
+    if (probability == null) {
       return null;
+    }
     return probability.toString();
   }
 }
