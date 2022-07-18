@@ -40,4 +40,16 @@ public class GetAirportInsightsUseCaseImplTest {
 
     assertThat(result).isEqualTo(new AirportInsights(1, 0, 1, null, new BigDecimal("0.95")));
   }
+
+  @Test
+  void buildInsightsCalculateProbability() {
+    when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
+      new Trip("LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
+      new Trip("BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("LEISURE", new BigDecimal("0.84")))
+    ));
+
+    AirportInsights result = useCase.execute("LIN", "2022-07-14");
+
+    assertThat(result).isEqualTo(new AirportInsights(2, 2, 0, new BigDecimal("0.8148"), null));
+  }
 }

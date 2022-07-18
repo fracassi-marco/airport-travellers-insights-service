@@ -1,29 +1,36 @@
 package ai.faire.challenge.airport.infrastructure.controllers;
 
+import ai.faire.challenge.airport.domain.AirportInsights;
+import ai.faire.challenge.airport.use_cases.GetAirportInsightsUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("integrationTest")
-public class TripsControllerTest {
-
+public class AirportInsightsControllerTest {
   @Autowired
   private TestRestTemplate restTemplate;
 
   @LocalServerPort
   private int randomServerPort;
+
+  @MockBean
+  private GetAirportInsightsUseCase useCase;
 
   private URI baseUri;
 
@@ -38,16 +45,16 @@ public class TripsControllerTest {
   }
 
   @Test
-  void registerATrip() {
-    var request = new RegisterTripRequest();
-    request.setOriginAirportCode("LIN");
-    request.setDestinationAirportCode("AMS");
-    request.setDepartureDate("2022-09-14");
-    request.setReturnDate("2022-09-18");
+  void getAirportInsights() {
+    var request = new GetAirportInsightsRequest();
+    request.setAirportCode("LIN");
+    request.setDate("2022-09-18");
 
-    var response = restTemplate.postForEntity(baseUri + "/trips", request, RegisterTripRequest.class);
+    when(useCase.execute("LIN", "2022-09-18")).thenReturn(new AirportInsights(1, 1, 0, new BigDecimal("0.99"), null));
 
-    assertThat(response.getStatusCode()).isEqualTo(CREATED);
-    assertThat(response.getBody()).isEqualTo(request);
+    var response = restTemplate.postForEntity(baseUri + "/airport-insights", request, GetAirportInsightsResponse.class);
+
+    assertThat(response.getStatusCode()).isEqualTo(OK);
+    assertThat(response.getBody()).isNotNull();
   }
 }

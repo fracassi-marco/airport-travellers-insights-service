@@ -18,6 +18,26 @@ public class AirportInsights {
     this.businessPurposeProbability = businessPurposeProbability;
   }
 
+  public int getTotalTravellers() {
+    return totalTravellers;
+  }
+
+  public int getLeisurePurposeTravellers() {
+    return leisurePurposeTravellers;
+  }
+
+  public int getBusinessPurposeTravellers() {
+    return businessPurposeTravellers;
+  }
+
+  public BigDecimal getLeisurePurposeProbability() {
+    return leisurePurposeProbability;
+  }
+
+  public BigDecimal getBusinessPurposeProbability() {
+    return businessPurposeProbability;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
