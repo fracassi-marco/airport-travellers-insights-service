@@ -45,9 +45,13 @@ public class TripsControllerTest {
     request.setDepartureDate("2022-09-14");
     request.setReturnDate("2022-09-18");
 
-    var response = restTemplate.postForEntity(baseUri + "/trips", request, RegisterTripRequest.class);
+    var response = restTemplate.postForEntity(baseUri + "/trips", request, RegisterTripResponse.class);
 
     assertThat(response.getStatusCode()).isEqualTo(CREATED);
-    assertThat(response.getBody()).isEqualTo(request);
+    assertThat(response.getBody().getId()).isNotNull();
+    assertThat(response.getBody().getOriginAirportCode()).isEqualTo("LIN");
+    assertThat(response.getBody().getDestinationAirportCode()).isEqualTo("AMS");
+    assertThat(response.getBody().getDepartureDate()).isEqualTo("2022-09-14");
+    assertThat(response.getBody().getReturnDate()).isEqualTo("2022-09-18");
   }
 }

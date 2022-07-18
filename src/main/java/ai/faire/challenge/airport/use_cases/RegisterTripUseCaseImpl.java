@@ -6,6 +6,8 @@ import ai.faire.challenge.airport.domain.PurposePrediction;
 import ai.faire.challenge.airport.domain.TripsRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class RegisterTripUseCaseImpl implements RegisterTripUseCase {
   private final TripsRepository tripsRepository;
@@ -17,9 +19,11 @@ public class RegisterTripUseCaseImpl implements RegisterTripUseCase {
   }
 
   @Override
-  public void execute(String originAirportCode, String destinationAirportCode, String departureDate, String returnDate) {
+  public Trip execute(String originAirportCode, String destinationAirportCode, String departureDate, String returnDate) {
     PurposePrediction purposePrediction = predictionsService.tripPurpose(originAirportCode, destinationAirportCode, departureDate, returnDate);
-    Trip trip = new Trip(originAirportCode, destinationAirportCode, departureDate, returnDate, purposePrediction);
+    Trip trip = new Trip(UUID.randomUUID().toString(), originAirportCode, destinationAirportCode, departureDate, returnDate, purposePrediction);
     tripsRepository.create(trip);
+
+    return trip;
   }
 }

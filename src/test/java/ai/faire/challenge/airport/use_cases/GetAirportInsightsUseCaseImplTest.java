@@ -21,8 +21,8 @@ public class GetAirportInsightsUseCaseImplTest {
   @Test
   void buildInsights() {
     when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
-      new Trip("LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
-      new Trip("BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("BUSINESS", new BigDecimal("0.95")))
+      new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
+      new Trip("id2", "BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("BUSINESS", new BigDecimal("0.95")))
     ));
 
     AirportInsights result = useCase.execute("LIN", "2022-07-14");
@@ -33,7 +33,7 @@ public class GetAirportInsightsUseCaseImplTest {
   @Test
   void buildInsightsWithoutLeisureTravellers() {
     when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
-      new Trip("BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("BUSINESS", new BigDecimal("0.95")))
+      new Trip("id", "BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("BUSINESS", new BigDecimal("0.95")))
     ));
 
     AirportInsights result = useCase.execute("LIN", "2022-07-14");
@@ -44,8 +44,8 @@ public class GetAirportInsightsUseCaseImplTest {
   @Test
   void buildInsightsCalculateProbability() {
     when(tripsRepository.filter("LIN", "2022-07-14")).thenReturn(List.of(
-      new Trip("LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
-      new Trip("BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("LEISURE", new BigDecimal("0.84")))
+      new Trip("id1", "LIN", "AMS", "2022-07-14", "2022-07-18", new PurposePrediction("LEISURE", new BigDecimal("0.97"))),
+      new Trip("id2", "BRU", "LIN", "2022-07-12", "2022-07-14", new PurposePrediction("LEISURE", new BigDecimal("0.84")))
     ));
 
     AirportInsights result = useCase.execute("LIN", "2022-07-14");
