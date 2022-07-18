@@ -26,6 +26,14 @@ public class Trip {
     return purposePrediction.getProbability();
   }
 
+  public boolean matchDeparture(String airport, String date) {
+    return originAirportCode.equals(airport) && departureDate.equals(date);
+  }
+
+  public boolean matchReturn(String airport, String date) {
+    return destinationAirportCode.equals(airport) && returnDate.equals(date);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
