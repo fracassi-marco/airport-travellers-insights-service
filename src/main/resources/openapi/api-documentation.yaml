@@ -39,12 +39,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegisterTripResponse'
+  /trips/{tripId}:
+    delete:
+      summary: Cancel a trip
+      description: |
+        Cancel an existing trip
+      operationId: cancelTrip
+      tags: [ Travel ]
+      parameters:
+        - in: path
+          name: tripId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: UUID of the trip to cancel
+      responses:
+        '200':
+          description: Trip canceled
   /airport-insights:
     post:
       summary: Get airport insights
       description: '*TODO Fill this with description*'
       operationId: getAirportInsights
       tags: [ Airport ]
+      requestBody:
+        description: Target for insights
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAirportInsightsRequest'
       responses:
         '200':
           description: Airport insights
@@ -78,6 +103,10 @@ components:
     RegisterTripResponse:
       type: object
       properties:
+        id:
+          description: Unique identifier of registered trip
+          type: string
+          format: uuid
         originAirportCode:
           $ref: '#/components/schemas/AirportIataCode'
         destinationAirportCode:
@@ -91,10 +120,23 @@ components:
           type: string
           format: date
       required:
+        - id
         - originAirportCode
         - destinationAirportCode
         - departureDate
         - returnDate
+    GetAirportInsightsRequest:
+      type: object
+      properties:
+        airportCode:
+          $ref: '#/components/schemas/AirportIataCode'
+        date:
+          description: Date for insights
+          type: string
+          format: date
+      required:
+        - airportCode
+        - date
     GetAirportInsightsResponse:
       type: object
       properties:
