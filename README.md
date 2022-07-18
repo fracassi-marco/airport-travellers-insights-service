@@ -99,7 +99,7 @@ To compile and verify the project run:
 
 ## Configuration
 
-*:pencil2: TODO Document how to configure the service.*
+The service can be configured editing the file `src/main/resources/application.yaml`
 
 ## Run the service
 
@@ -110,12 +110,37 @@ The service can be launched running the following command:
 ```
 
 ### Run with Docker
-
-*:pencil2: TODO Document how to run the service using Docker.*
+```shell
+% ./gradlew clean build
+% docker build -t travellers-insights .
+% docker run -p 8080:8080 travellers-insights
+```
 
 ## Usage
 
-*:pencil2: TODO Explain how to use the service and provide examples.*
+### Register a trip
+
+The service permits to register a trip:
+```shell
+% curl -v 'http://localhost:8080/trips/' \
+     -H "Content-Type: application/json" \
+     -d '{ "originAirportCode": "LIN", "destinationAirportCode": "AMS", "departureDate": "2022-07-18", "returnDate": "2022-07-18" }'
+```
+
+Considering all registered trips, the service can give insights about a given airport in a given date:
+```shell
+% curl -v 'http://localhost:8080/airport-insights/' \
+     -H "Content-Type: application/json" \
+     -d '{ "airportCode": "LIN", "date": "2022-07-18" }'
+```
+
+A useless or not more valid trip can be canceled:
+```shell
+% curl -v 'http://localhost:8080/trips/{tripId}' \
+     -X DELETE     
+```
+
+
 
 The service exposes the endpoint `/api-docs` to get the OpenAPI documentation
 of the service API.

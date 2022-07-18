@@ -17,15 +17,18 @@ import static org.springframework.http.HttpMethod.GET;
 
 @Component
 public class AmadeusPredictionsService implements PredictionsService {
+  private final AmadeusConfig amadeusConfig;
 
-  private final String endpoint = "https://test.api.amadeus.com";
+  public AmadeusPredictionsService(AmadeusConfig amadeusConfig) {
+    this.amadeusConfig = amadeusConfig;
+  }
 
   @Override
   public PurposePrediction tripPurpose(String originAirportCode,
                                        String destinationAirportCode,
                                        String departureDate,
                                        String returnDate) {
-    String url =  endpoint + "/v1/travel/predictions/trip-purpose?"
+    String url =  amadeusConfig.getEndpoint() + "/v1/travel/predictions/trip-purpose?"
       + "originLocationCode=" + originAirportCode
       + "&destinationLocationCode=" + destinationAirportCode
       + "&departureDate=" + departureDate
@@ -47,14 +50,14 @@ public class AmadeusPredictionsService implements PredictionsService {
   private String getAccessToken() {
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
     map.add("grant_type", "client_credentials");
-    map.add("client_id", "r0TCN2h1I52etmG9G2g0nAGAHDpJJuwl");
-    map.add("client_secret", "hm5zJUkIQAuqUDyR");
+    map.add("client_id", amadeusConfig.getClientId());
+    map.add("client_secret", amadeusConfig.getClientSecret());
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
     HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
 
-    String url = endpoint + "/v1/security/oauth2/token";
+    String url = amadeusConfig.getEndpoint() + "/v1/security/oauth2/token";
     Map<String, String> response = new RestTemplate().postForEntity(url, entity, Map.class).getBody();
     return response.get("access_token");
   }
