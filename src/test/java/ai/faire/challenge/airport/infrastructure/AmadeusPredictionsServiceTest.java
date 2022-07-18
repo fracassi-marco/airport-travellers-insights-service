@@ -15,6 +15,7 @@ public class AmadeusPredictionsServiceTest {
   void tripPurposePrediction() {
     PurposePrediction purposePrediction = predictionsService.tripPurpose("NYC", "MAD", "2022-08-01", "2022-08-12");
 
-    assertThat(purposePrediction).isEqualTo(new PurposePrediction("LEISURE", new BigDecimal("0.99790406")));
+    assertThat(purposePrediction.purpose()).isEqualTo("LEISURE");
+    assertThat(purposePrediction.probability()).isEqualTo(new BigDecimal("0.99790406"));
   }
 }
