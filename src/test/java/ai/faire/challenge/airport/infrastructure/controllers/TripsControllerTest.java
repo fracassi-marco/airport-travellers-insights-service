@@ -2,6 +2,7 @@ package ai.faire.challenge.airport.infrastructure.controllers;
 
 import ai.faire.challenge.airport.domain.PurposePrediction;
 import ai.faire.challenge.airport.domain.Trip;
+import ai.faire.challenge.airport.use_cases.CancelTripUseCase;
 import ai.faire.challenge.airport.use_cases.RegisterTripUseCase;
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +14,11 @@ import static org.mockito.Mockito.*;
 public class TripsControllerTest {
 
   private final RegisterTripUseCase registerTripUseCase = mock(RegisterTripUseCase.class);
-  private final TripsController tripsController = new TripsController(registerTripUseCase);
+  private final CancelTripUseCase cancelTripUseCase = mock(CancelTripUseCase.class);
+  private final TripsController tripsController = new TripsController(registerTripUseCase, cancelTripUseCase);
 
   @Test
-  void shouldCallUseCase() {
+  void shouldCallRegisterTripUseCase() {
     var request = new RegisterTripRequest();
     request.setOriginAirportCode("LIN");
     request.setDestinationAirportCode("AMS");
@@ -30,6 +32,13 @@ public class TripsControllerTest {
     var response = tripsController.registerTrip(request);
 
     assertThat(response.getId()).isEqualTo("id");
+  }
+
+  @Test
+  void shouldCallCancelTripUseCase() {
+    tripsController.cancelTrip("the_id");
+
+    verify(cancelTripUseCase).execute("the_id");
   }
 
   private PurposePrediction aPrediction() {

@@ -35,7 +35,7 @@ public class AirportInsightsControllerTest {
   private URI baseUri;
 
   @BeforeEach
-  void setUp() {
+  public void setUp() {
     UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance().scheme("http")
       .host("localhost")
       .port(randomServerPort)
@@ -45,7 +45,7 @@ public class AirportInsightsControllerTest {
   }
 
   @Test
-  void getAirportInsights() {
+  public void getAirportInsights() {
     var request = new GetAirportInsightsRequest();
     request.setAirportCode("LIN");
     request.setDate("2022-09-18");

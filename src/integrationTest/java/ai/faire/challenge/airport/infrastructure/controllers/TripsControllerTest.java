@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,7 +14,9 @@ import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("integrationTest")
@@ -28,7 +31,7 @@ public class TripsControllerTest {
   private URI baseUri;
 
   @BeforeEach
-  void setUp() {
+  public void setUp() {
     UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance().scheme("http")
       .host("localhost")
       .port(randomServerPort)
@@ -38,7 +41,7 @@ public class TripsControllerTest {
   }
 
   @Test
-  void registerATrip() {
+  public void registerATrip() {
     var request = new RegisterTripRequest();
     request.setOriginAirportCode("LIN");
     request.setDestinationAirportCode("AMS");
@@ -53,5 +56,12 @@ public class TripsControllerTest {
     assertThat(response.getBody().getDestinationAirportCode()).isEqualTo("AMS");
     assertThat(response.getBody().getDepartureDate()).isEqualTo("2022-09-14");
     assertThat(response.getBody().getReturnDate()).isEqualTo("2022-09-18");
+  }
+
+  @Test
+  public void cancelATrip() {
+    ResponseEntity<Void> response = restTemplate.exchange(baseUri + "/trips/the_id", DELETE, null, Void.class);
+
+    assertThat(response.getStatusCode()).isEqualTo(OK);
   }
 }
