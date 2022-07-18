@@ -14,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import static org.springframework.http.HttpMethod.GET;
+
 @Component
 public class AmadeusPredictionsService implements PredictionsService {
 
@@ -26,7 +28,7 @@ public class AmadeusPredictionsService implements PredictionsService {
       "&destinationLocationCode=" + destinationAirportCode +
       "&departureDate=" + departureDate +
       "&returnDate=" + returnDate +
-      "&searchDate=" + "2022-07-16";
+      "&searchDate=" + "2020-01-01";
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
@@ -34,7 +36,7 @@ public class AmadeusPredictionsService implements PredictionsService {
 
     HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-    Map<String, Map<String, String>> response = new RestTemplate().exchange(url, HttpMethod.GET, entity, Map.class).getBody();
+    Map<String, Map<String, String>> response = new RestTemplate().exchange(url, GET, entity, Map.class).getBody();
     Map<String, String> data = response.get("data");
 
     return new PurposePrediction(data.get("result"), new BigDecimal(data.get("probability")));
