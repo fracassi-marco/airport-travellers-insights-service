@@ -25,4 +25,9 @@ public class InMemoryTripsRepository implements TripsRepository {
       .filter(it -> it.matchDeparture(airport, date) || it.matchReturn(airport, date))
       .collect(toList());
   }
+
+  @Override
+  public void delete(String tripId) {
+    trips.removeIf(it -> it.getId().equals(tripId));
+  }
 }
